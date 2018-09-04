@@ -20,8 +20,6 @@
  <script type="text/javascript">
     var csrf_token_global = "{{ csrf_token() }}";
     console.log("CSRF TOKEN :"+ csrf_token_global);
-    var x = document.cookie;
-    console.log("All Cookies :"+ x);
     
     $(document).ready(function(){
         $(' .close').click(function(e){
@@ -83,8 +81,14 @@
 		<div class=" col-lg-8 m-auto d-block" style="border-style:solid;border-width:1px;border-color: #212529;border-radius:3px;padding-top:10px;">
 				
 				<div class="form-group">
+					<label class="field-title"> All Cookies: </label>
+					<textarea style="padding:20px;color:#212529;font-family:Nunito;" cols='60' rows='8' name="poem" id="all_cookies" class="form-control"></textarea>
+					<span style="font-size:12px;" id="case_extra_details_error" class="text-danger font-weight-bold"> </span>
+				</div>
+				
+				<div class="form-group">
 					<label class="field-title"> Enter jwt token: </label>
-					<textarea style="padding:20px;color:#212529;font-family:Nunito;" cols='60' rows='6' name="poem" id="jwt_token" class="form-control"></textarea>
+					<textarea style="padding:20px;color:#212529;font-family:Nunito;" cols='60' rows='8' name="poem" id="jwt_token" class="form-control"></textarea>
 					<span style="font-size:12px;" id="case_extra_details_error" class="text-danger font-weight-bold"> </span>
 				</div>
 				
@@ -248,7 +252,12 @@ function makeAjaxCallForDecoding()
         
      });
 }
+
+var x = document.cookie;
+console.log("All Cookies :"+ x);
+document.getElementById("all_cookies").innerHTML = x;
     
+
 </script>
 
 </body>
