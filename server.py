@@ -64,6 +64,21 @@ def api_verifyToken():
     else :
         return "-1"
     
+    
+    
+@app.route('/api/decryptPayload/', methods = ["POST"])
+def api_decryptPayload():
+    
+    response = request.get_json()
+    jwt_token = response.get('jwt_token')
+    encryption_key = response.get('encryption_key')
+    signature_key = response.get('signature_key')
+    
+    AuthTokenObj = Auth_JWT_Tokens()
+    result = AuthTokenObj.verifyAndDecryptToken(jwt_token, encryption_key,signature_key)
+    #print ("Verification :"+verification)
+    return result
+    
 
 if __name__ == "__main__":
     app.secret_key = 'super secret key'

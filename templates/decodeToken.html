@@ -38,7 +38,7 @@
          color:#FFC107;
          background-color:#212529;
          padding:10px;
-         width:35%;
+         width:65%;
          height:100%;
          margin:auto;
          font-family: Baloo;
@@ -56,7 +56,7 @@
         font-size :  20px;
         padding : 10px;
         margin : 10px;
-        width  :  40%;
+        width  :  70%;
     }
     
     .button-add-case:hover{
@@ -78,13 +78,13 @@
 
 	<div class="container">
     <br>
-		<h1 class="text-center title-heading"> Generate Token</h1><br>
+		<h1 class="text-center title-heading"> Verify and Decode Token</h1><br>
 				
 		<div class=" col-lg-8 m-auto d-block" style="border-style:solid;border-width:1px;border-color: #212529;border-radius:3px;padding-top:10px;">
 				
 				<div class="form-group">
 					<label class="field-title"> Enter jwt token: </label>
-					<textarea style="padding:20px;color:#212529;font-family:Nunito;" cols='60' rows='4' name="poem" id="jwt_token" class="form-control"></textarea>
+					<textarea style="padding:20px;color:#212529;font-family:Nunito;" cols='60' rows='6' name="poem" id="jwt_token" class="form-control"></textarea>
 					<span style="font-size:12px;" id="case_extra_details_error" class="text-danger font-weight-bold"> </span>
 				</div>
 				
@@ -106,15 +106,23 @@
 				<div class='row'>
                             <div class='col-xs-6 col-sm-6 col-md-6'>
                                 <button type="button" value="Verify Token" id="btn_verify_token" class="btn button-add-case"> Vefify Token</button>
+                            </div>
+                            <div class='col-xs-6 col-sm-6 col-md-6'>
                                 <div id="verify_success" style="display:none;color:green;font-family:Nunito;margin:10px;padding:10px;">Verified Token</div>
                                 <div id="verify_failure" style="display:none;color:red;font-family:Nunito;margin:10px;padding:10px;">Token Verification failed</div>
                             </div>
+                </div> 
+                
+                
+                <div class='row'>
                             <div class='col-xs-6 col-sm-6 col-md-6'>
                                 <button type="button" value="Decode Token" id="btn_decode_token" class="btn button-add-case"> Decode Token</button>
-                                <div id="decrypted_payload" style="display:none;color:#212529;font-family:Nunito;"></div>
+                            </div>
+                            <div class='col-xs-6 col-sm-6 col-md-6'>
+                                <div id="payload_result" style="color:green;font-family:Nunito;margin:10px;padding:10px;"></div>
                             </div>
                 </div> 
-				
+                
 				<div id="generated_token_div" style="display:none;">
 				<label class="field-title"> Generated Token : </label>
 				<textarea style="padding:20px;color:#212529;font-family:Nunito;" cols='60' rows='5'id="jwt_token" class="form-control"></textarea>
@@ -186,6 +194,56 @@ function makeAjaxCallForVerification()
                 {
                     console.log("Token Verified !");
                     document.getElementById("verify_success").style.display="";
+                }
+        
+     });
+}
+
+
+function makeAjaxCallForDecoding()
+{
+
+    console.log("Submit ajax for verification called");
+    
+        	var jwt_token                             =   document.getElementById('jwt_token').value;
+        	var encryption_key                        =   document.getElementById('encryption_key').value;
+			var signature_key                           =   document.getElementById('signature_key').value;
+			
+			var jwt_token_div                    =   document.getElementById('jwt_token');
+		           
+         console.log("reached 1");
+        
+        var formData = {        
+            'jwt_token'                         : jwt_token,
+            'encryption_key'                    : encryption_key,
+            'signature_key'                     : signature_key
+        };
+        
+        console.log("reached 2");
+        
+        // process the form
+        $.ajax({
+            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+            url         : '/api/decryptPayload/', // the url where we want to POST
+            contentType : 'application/json',
+            data        : JSON.stringify(formData), // our data object
+            dataType    : 'json', // what type of data do we expect back from the server
+            encode      :  true,
+            headers: { 'X-CSRFToken': csrf_token_global }
+        })
+            .done(function(data) {
+                
+                console.log("Got response from server");
+                console.log("Response from server  :"+data.result);
+                if (data.result == "failure")
+                {
+                    console.log("Error  :"+data.message);
+                    document.getElementById("payload_result").innerHTML = data.message;
+                }
+                else
+                {
+                    console.log("Decryption successful");
+                    document.getElementById("payload_result").innerHTML = data.payload;
                 }
         
      });

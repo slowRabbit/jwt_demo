@@ -56,13 +56,13 @@ class Auth_JWT_Tokens :
         return True
 
 
-    def verifyAndDecryptToken2(self, tokenToDecode, encryption_key, signature_key):
+    def verifyAndDecryptToken(self, tokenToDecode, encryption_key, signature_key):
 
         #this function would verify if the token is valid, not expired, and if valid decrypt the payload and return the data
         try:
-            recievedToken = jwt.decode(tokenToDecode, self.token_signature_key)
+            recievedToken = jwt.decode(tokenToDecode, signature_key)
             dataRecieved = recievedToken['data']
-            decodedPayloadData = self.decrypt_message(dataRecieved, self.token_encryption_key, "{")
+            decodedPayloadData = self.decrypt_message(dataRecieved, encryption_key, "{")
             #this would give the payload data  in json format, WHICH looks  like  DATA JSON object in getToken FUNCTION !
             userDetailsJsonData = json.loads(decodedPayloadData)
             #user = jsonData['username']
@@ -79,28 +79,28 @@ class Auth_JWT_Tokens :
             result = -1
             #this next lines gives  the  exact reason of not able to verify the jwt
             #message = e.message
-            message = "Invalid session, please login again  !"
-            '''
-            result = {
-                          "result": '-1',
+            print "Cannod  decrypt due to :"+e.message
+            negetive_resp = make_response(jsonify({
+                          "result": "failure",
                           "message" : e.message
-                    }
-            '''
-            return (result, message, None)
+                    }))
+            return negetive_resp
+            #return (result, message, None)
+            #-1  specifies  that decoding failed due to some error
+            #return -1
 
 
         #return the decrypted token data, if token is verified properly
         #result = +1 and message should be of success, and return the decoded JSON payload data
-        result = 1
-        message = "User authenticated"
-        userDetails =   {
-
-                                "result"  : "1",
+        positive_resp = make_response(jsonify({
+                                "result"  : "success",
                                 "message" : "Token verified and payload decrypted",
-                                "jsondata" : userDetailsJsonData,
+                                "payload" : userDetailsJsonData,
                                 #"user" : user
-                        }
-        return (result, message, userDetailsJsonData)
+                        }))
+        #return (result, message, userDetailsJsonData)
+        print "Decryption successful"
+        return positive_resp
 
 
     def returnJSONData(self):
