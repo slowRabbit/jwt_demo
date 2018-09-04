@@ -43,8 +43,20 @@ class Auth_JWT_Tokens :
         return sentToken
         
 
+    def verifyToken(self, tokenToDecode, signature_key):
+         
+        try:
+            recievedToken = jwt.decode(tokenToDecode, signature_key)
+            
+        except Exception as e:
+            print ("Invalid token"+e.message)
+            return False
+        
+        print ("Token verified")
+        return True
 
-    def verifyAndDecryptToken(self, tokenToDecode):
+
+    def verifyAndDecryptToken2(self, tokenToDecode, encryption_key, signature_key):
 
         #this function would verify if the token is valid, not expired, and if valid decrypt the payload and return the data
         try:

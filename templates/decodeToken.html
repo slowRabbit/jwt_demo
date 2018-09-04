@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+
+    <!-- This file is for the ajax call to the backend api and verify if the user was successfully registered or not -->
+ 
+ <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Nunito" />
+ <link href='https://fonts.googleapis.com/css?family=Baloo:400,700' rel='stylesheet' type='text/css'>
+ 
+ <script type="text/javascript">
+    var csrf_token_global = "{{ csrf_token() }}";
+    console.log("CSRF TOKEN :"+ csrf_token_global);
+    var x = document.cookie;
+    console.log("All Cookies :"+ x);
+    
+    $(document).ready(function(){
+        $(' .close').click(function(e){
+            $(this).closest('.flash-message').remove();
+        });
+    });
+    
+</script>
+
+
+
+<style>
+    .title-heading{
+         color:#FFC107;
+         background-color:#212529;
+         padding:10px;
+         width:35%;
+         height:100%;
+         margin:auto;
+         font-family: Baloo;
+         border-radius: 5px;
+         border-style: solid;
+         border-width: 3px;
+         border-color: #212529;
+         font-size:30px;
+    }
+    
+    .button-add-case{
+        background-color : #FFC107;
+        font-family : Baloo;
+        color : white;
+        font-size :  20px;
+        padding : 10px;
+        margin : 10px;
+        width  :  40%;
+    }
+    
+    .button-add-case:hover{
+        background-color : #FFA000;
+    }
+    
+    .field-title{
+        color : #212529;
+        font-family : Baloo;
+        padding-top: 5px;
+        padding-left : 15px;
+        font-size : 20px;
+    }
+    
+</style>
+
+</head>
+<body>
+
+	<div class="container">
+    <br>
+		<h1 class="text-center title-heading"> Generate Token</h1><br>
+				
+		<div class=" col-lg-8 m-auto d-block" style="border-style:solid;border-width:1px;border-color: #212529;border-radius:3px;padding-top:10px;">
+				
+				<div class="form-group">
+					<label class="field-title"> Enter jwt token: </label>
+					<textarea style="padding:20px;color:#212529;font-family:Nunito;" cols='60' rows='4' name="poem" id="jwt_token" class="form-control"></textarea>
+					<span style="font-size:12px;" id="case_extra_details_error" class="text-danger font-weight-bold"> </span>
+				</div>
+				
+				<div class="form-group">
+					<label class="field-title"> Data / Payload encryption key: </label>
+					<input style="color:#212529;font-family:Nunito;" placeholder="01Q3RWx9pfkAkvIlX7aGbg==" type="text" name="title" id="encryption_key" class="form-control" autocomplete="off">
+					<span style="font-size:12px;" id="case_client_id_error" class="text-danger font-weight-bold"> </span>
+				</div>
+				
+				<div class="form-group">
+					<label class="field-title"> Token digital signature key </label>
+					<input style="color:#212529;font-family:Nunito;" type="text" name="title" id="signature_key" class="form-control" autocomplete="off">
+					<span style="font-size:12px;" id="case_number_error" class="text-danger font-weight-bold"> </span>
+				</div>
+				
+				
+				<center>
+				
+				<div class='row'>
+                            <div class='col-xs-6 col-sm-6 col-md-6'>
+                                <button type="button" value="Verify Token" id="btn_verify_token" class="btn button-add-case"> Vefify Token</button>
+                                <div id="verify_success" style="display:none;color:green;font-family:Nunito;margin:10px;padding:10px;">Verified Token</div>
+                                <div id="verify_failure" style="display:none;color:red;font-family:Nunito;margin:10px;padding:10px;">Token Verification failed</div>
+                            </div>
+                            <div class='col-xs-6 col-sm-6 col-md-6'>
+                                <button type="button" value="Decode Token" id="btn_decode_token" class="btn button-add-case"> Decode Token</button>
+                                <div id="decrypted_payload" style="display:none;color:#212529;font-family:Nunito;"></div>
+                            </div>
+                </div> 
+				
+				<div id="generated_token_div" style="display:none;">
+				<label class="field-title"> Generated Token : </label>
+				<textarea style="padding:20px;color:#212529;font-family:Nunito;" cols='60' rows='5'id="jwt_token" class="form-control"></textarea>
+				<div>
+               
+             
+
+        <p> {{message}} </p>
+        
+        
+        
+            
+		</div>
+	</div>
+
+
+<script>
+    
+    $("#btn_verify_token").click(function(e) { 
+        makeAjaxCallForVerification();
+});
+
+    $("#btn_decode_token").click(function(e) { 
+        makeAjaxCallForDecoding();
+});
+
+function makeAjaxCallForVerification()
+{
+
+    console.log("Submit ajax for verification called");
+    
+        	var jwt_token                             =   document.getElementById('jwt_token').value;
+			var signature_key                           =   document.getElementById('signature_key').value;
+			
+			var jwt_token_div                    =   document.getElementById('jwt_token');
+		           
+         console.log("reached 1");
+        
+        var formData = {        
+            'jwt_token'                         : jwt_token,
+            'signature_key'                     : signature_key
+        };
+        
+        console.log("reached 2");
+        
+        // process the form
+        $.ajax({
+            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+            url         : '/api/verifyToken/', // the url where we want to POST
+            contentType : 'application/json',
+            data        : JSON.stringify(formData), // our data object
+            dataType    : 'text', // what type of data do we expect back from the server
+            encode      :  true,
+            headers: { 'X-CSRFToken': csrf_token_global }
+        })
+            .done(function(data) {
+                
+                document.getElementById("verify_success").style.display="none";
+                document.getElementById("verify_failure").style.display="none";
+                
+                console.log("Got response from server");
+                console.log("Response from server  :"+data);
+                if (data == "-1")
+                {
+                    console.log("Failed verification !");
+                    document.getElementById("verify_failure").style.display="";
+                }
+                else
+                {
+                    console.log("Token Verified !");
+                    document.getElementById("verify_success").style.display="";
+                }
+        
+     });
+}
+    
+</script>
+
+</body>
+</html>
