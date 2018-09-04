@@ -20,8 +20,14 @@ def getToken():
             }
         
         
+        response = request.get_json()
+        data2 = response.get('data')
+        encryption_key = response.get('encryption_key')
+        signature_key = response.get('signature_key')
+        
         AuthTokenObj = Auth_JWT_Tokens()
-        return AuthTokenObj.getToken2(data, "01Q3RWx9pfkAkvIlX7aGbg==", "super secret key")
+        #return AuthTokenObj.getToken2(data, "01Q3RWx9pfkAkvIlX7aGbg==", "super secret key")
+        return AuthTokenObj.getToken2(data, encryption_key, signature_key)
         
         
     else :
@@ -34,4 +40,4 @@ if __name__ == "__main__":
     #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://user1:pass@user1@localhost/flask_test1'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-    app.run(debug=True, port=8047)
+    app.run(debug=True, port=8044)
