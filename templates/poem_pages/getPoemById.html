@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+
+    <!-- This file is for the ajax call to the backend api and verify if the user was successfully registered or not -->
+ <script type="text/javascript" 
+ src="{{ url_for('static', filename='js_scripts/poem/addNewPoemSubmitAjax.js') }}"></script>
+ 
+    <!-- This file is for validating the user input in user registration form -->
+  <script type="text/javascript" 
+ src="{{ url_for('static', filename='js_scripts/poem/addNewPoemValidation.js') }}"></script>
+ <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Nunito" />
+ <link href='https://fonts.googleapis.com/css?family=Baloo:400,700' rel='stylesheet' type='text/css'>
+ 
+
+<style>
+
+    .poem-card{
+        border-style: solid;
+        border-width: 1px;
+        border-color: #212529;
+        border-radius: 3px;
+        box-shadow: 10px 15px #888888;
+        margin-top : 50px;
+        margin-bottom : 10px;
+    }
+
+    .poem-card-header{
+        background-color : #212529;
+        color : white;
+        padding : 10px;
+        font-family: Nunito;
+        font-weight: bold;
+    }
+    
+    .poem-card-content{
+        color : #212529;
+        font-family: Nunito;
+        padding : 20px;
+        line-height: 1.5em;
+        font-size : 18px;
+    }
+    
+    .poem-heading{
+         color:white;
+         background-color:#212529;
+         padding:10px;
+         width:25%;
+         height:100%;
+         margin:auto;
+         font-family: Baloo;
+         border-radius: 5px;
+         border-style: solid;
+         border-width: 3px;
+         border-color: #212529;
+         font-size:40px;
+    }
+    
+    .poem-title{
+        color:#FFC107;
+        font-size:30px;
+    }
+    
+    .poem-date-time{
+        padding-top:2px;
+        font-size:16px;
+        text-align:right;
+    }
+    
+    .ppoem-tags{
+        padding-top:2px;
+        padding-bottom:10px;
+        font-size:16px;
+        text-align:left;
+    }
+    
+    .poem-content{
+        white-space: pre-line;
+        margin:auto;
+    }
+    
+    .poem-id{
+        display:none;
+    }
+
+</style>
+
+</head>
+<body>
+
+	<div class="container">
+        
+		
+		<div class="container" style="min-height:100% width:80%">
+            	{% with messages = get_flashed_messages() %}
+            	  {% if messages %}
+            	    {% for message in messages %}
+            	    <div class="flash-message">
+            		  <div class="alert alert-warning alert-dismissible" role="alert">
+            		  <button type="button" class="close" data-dismiss="alert" aria-label="close"><span aria-hidden="true">&times;</span></button>
+            			{{message}}  
+            		  </div>
+        		   </div>
+            		{% endfor %}
+            	  {% endif %}
+            	{% endwith %}
+    	</div>
+    	
+    	{% if ERROR %}
+        	<div class='container poem-card' style='min-height:100%;width:80%;align:center;float:center;margin-bottom:40px;border-color:red;border-width:5px;box-shadow: 0px 0px #888888;'>
+                                    	<p style='color:red;font-size:30px;text-align:center;'>{{ERROR}}</p>
+            </div>
+        	
+    	{% else %}
+        	<div class='container poem-card' style='min-height:100%;width:80%;align:center;float:center;margin-bottom:40px;'>
+                            	
+                                    	<div class='row poem-card-header'>
+                                        	<div class='col-xs-7 col-sm-7 col-md-7 poem-title'>{{TITLE}}</div>
+                                        	<div class='col-xs-5 col-sm-5 col-md-5 poem-date-time'>{{DATE}}</div>
+                                        	
+                                    	</div>
+                                    	<div class='row poem-card-header'>
+                                        	<div class='col-xs-7 col-sm-7 col-md-7 poem-tags'>( {{TAGS}} )</div>
+                                        	<div class='col-xs-5 col-sm-5 col-md-5 poem-date-time'>{{TIME}}</div>
+                                        	
+                                    	</div>
+                                    	
+                                    	<div class='row poem-card-content'>
+                                        	<p class='poem-content'>{{CONTENT}}</p>
+                                    	</div>
+    
+            </div>
+        {% endif %}
+    	
+	</div>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+    <html lang="en">
+        <head>
+        	<meta charset="utf-8">
+        	<title>Lawyer's Suite</title>
+        	<meta name="viewport" content="width=device-width, initial-scale=1">
+        	
+        	<link href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+        	<link href="{{ url_for('static', filename='icons/lawyerIcon1.png') }}" rel="shortcut icon" >
+        	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        	<script type="text/javascript" src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
+        	
+        	
+        	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Nunito" />
+           <style>
+           
+               .navbar-brand  { 
+                    font-family: Nunito;
+                    font-weight: bold;
+                    padding-top: 5px;
+                    padding-right: 10px;
+                    padding-bottom: 5px;
+                    padding-left: 10px;
+                    border-radius: 5px;
+               }
+               
+               
+               #loginLink {
+                    margin-right:20px;
+               }
+               
+               
+                
+                 .mainNavbar{
+                  position: fixed;
+                  background-color:rgba(66, 66, 66, 1);
+                  color:white;
+                  width:100%;
+                   overflow: hidden;
+                  top: 0;
+                }
+                
+
+           
+           </style>
+           
+        	
+        </head>
+        
+        
+        <header>
+          
+               <nav class="navbar navbar-expand-lg navbar-dark above-parallex-navbar mainNavbar" id="mainNavbar" style="">
+                  <p class="navbar-brand" href="#">Dashboard</p>
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  
+                    <div class="form-inline my-2 my-lg-0" style="margin-left:auto; margin-right:0;">
+                      <a class="navbar-brand" href="/logout/" id="loginLink">Logout</a>
+                    </div>
+                  </div>
+                </nav>
+                
+         </header>
+            
+         <body>
+                
+               
+                    <p style="margin-top:200px">This example creates a full page background image. Try to resize the browser window to see how it always will cover the full screen (when scrolled to top), and that it scales nicely on all screen sizes.</p>
+                        <p style="margin-top:200px">This example creates a full page background image. Try to resize the browser window to see how it always will cover the full screen (when scrolled to top), and that it scales nicely on all screen sizes.</p>
+                <p style="margin-top:200px">This example creates a full page background image. Try to resize the browser window to see how it always will cover the full screen (when scrolled to top), and that it scales nicely on all screen sizes.</p>
+                <p style="margin-top:200px">This example creates a full page background image. Try to resize the browser window to see how it always will cover the full screen (when scrolled to top), and that it scales nicely on all screen sizes.</p>
+                <p style="margin-top:200px">This example creates a full page background image. Try to resize the browser window to see how it always will cover the full screen (when scrolled to top), and that it scales nicely on all screen sizes.</p>
+                <p style="margin-top:200px">This example creates a full page background image. Try to resize the browser window to see how it always will cover the full screen (when scrolled to top), and that it scales nicely on all screen sizes.</p>
+                <p style="margin-top:200px">This example creates a full page background image. Try to resize the browser window to see how it always will cover the full screen (when scrolled to top), and that it scales nicely on all screen sizes.</p>
+                <p style="margin-top:200px">This example creates a full page background image. Try to resize the browser window to see how it always will cover the full screen (when scrolled to top), and that it scales nicely on all screen sizes.</p>
+                <p style="margin-top:200px">This example creates a full page background image. Try to resize the browser window to see how it always will cover the full screen (when scrolled to top), and that it scales nicely on all screen sizes.</p>
+                <p style="margin-top:200px">This example creates a full page background image. Try to resize the browser window to see how it always will cover the full screen (when scrolled to top), and that it scales nicely on all screen sizes.</p>
+            
+            
+               <div class="container-fluid" style="min-width:80%; margin:20px;">
+                        	
+                        	{% block body %}{% endblock %}
+                	</div>
+         
+         </body>
+         
+    </html>
+        
