@@ -20,6 +20,8 @@
  <script type="text/javascript">
     var csrf_token_global = "{{ csrf_token() }}";
     console.log("CSRF TOKEN :"+ csrf_token_global);
+    
+    
     var x = document.cookie;
     console.log("All Cookies :"+ x);
     
@@ -83,6 +85,11 @@
 		<div class=" col-lg-8 m-auto d-block" style="border-style:solid;border-width:1px;border-color: #212529;border-radius:3px;padding-top:10px;">
 				
 				<div class="form-group">
+					<label class="field-title"> CSRF Token:</label>
+    				<textarea style="padding:20px;color:#212529;font-family:Nunito;" cols='60' rows='3' name="poem" id="csrf_token" class="form-control"></textarea>
+				</div>
+				
+				<div class="form-group">
 					<label class="field-title"> Data / Payload: </label>
 					<textarea style="padding:20px;color:#212529;font-family:Nunito;" cols='60' rows='6' name="poem" id="data" class="form-control"
 					>
@@ -144,6 +151,7 @@ function makeAjaxCall()
 			var data_encryption_key              =   document.getElementById('encryption_key').value;
 			var ds_key                           =   document.getElementById('signature_key').value;
 			
+			var csrf_token                       =   document.getElementById('csrf_token').value;
 			var jwt_token_div                    =   document.getElementById('jwt_token');
 		           
          console.log("reached 1");
@@ -163,7 +171,7 @@ function makeAjaxCall()
             data        : JSON.stringify(formData), // our data object
             dataType    : 'text', // what type of data do we expect back from the server
             encode      :  true,
-            headers: { 'X-CSRFToken': csrf_token_global }
+            headers: { 'X-CSRFToken': csrf_token }
         })
             .done(function(data) {
                 
@@ -174,6 +182,9 @@ function makeAjaxCall()
         
      });
 }
+    
+document.getElementById('csrf_token').innerHTML = csrf_token_global;
+    
     
 </script>
 
