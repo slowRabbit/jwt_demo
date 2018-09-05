@@ -92,12 +92,11 @@ def handle_csrf_error(e):
                         }
                         })
 
-if __name__ == "__main__":
-    app.secret_key = 'super secret key'
-    app.config['SESSION_TYPE'] = 'filesystem'
-    #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://user1:pass@user1@localhost/flask_test1'
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['SECRET_KEY'] = 'any secret string'
-    app.config['WTF_CSRF_SECRET_KEY'] = "a csrf secret key"
+app.secret_key = 'super secret key'
+app.config['SESSION_TYPE'] = 'filesystem'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SECRET_KEY'] = 'any secret string'
+app.config['WTF_CSRF_SECRET_KEY'] = "a csrf secret key"
 
+if __name__ == "__main__":
     app.run()
