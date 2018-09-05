@@ -97,5 +97,9 @@ if __name__ == "__main__":
     app.config['SESSION_TYPE'] = 'filesystem'
     #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://user1:pass@user1@localhost/flask_test1'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config.update(dict(
+    SECRET_KEY="powerful secretkey",
+    WTF_CSRF_SECRET_KEY="a csrf secret key"
+))
 
     app.run(debug=True, port=8041)
