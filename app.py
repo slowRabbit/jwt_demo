@@ -99,4 +99,4 @@ app.config['SECRET_KEY'] = 'any secret string'
 app.config['WTF_CSRF_SECRET_KEY'] = "a csrf secret key"
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug = True, port = 8041)
