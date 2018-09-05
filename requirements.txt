@@ -4,3 +4,4 @@ gunicorn
 jsonify
 responses==0.3.0
 jwt==0.3.2
+Flask-WTF
