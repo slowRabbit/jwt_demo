@@ -46,7 +46,9 @@ def getToken():
 def decodeToken():
         return render_template("decodeToken.html")
 
-
+@app.route('/', methods = ["GET"])
+def indexPage():
+    return render_template("indexPage.html")
 
 @app.route('/api/verifyToken/', methods = ["POST"])
 def api_verifyToken():
@@ -86,4 +88,4 @@ if __name__ == "__main__":
     #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://user1:pass@user1@localhost/flask_test1'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-    app.run(debug=True, port=8042)
+    app.run(debug=True, port=8045)

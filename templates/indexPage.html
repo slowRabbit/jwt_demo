@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+
+    <!-- This file is for the ajax call to the backend api and verify if the user was successfully registered or not -->
+ 
+ <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Nunito" />
+ <link href='https://fonts.googleapis.com/css?family=Baloo:400,700' rel='stylesheet' type='text/css'>
+ 
+ <script type="text/javascript">
+    var csrf_token_global = "{{ csrf_token() }}";
+    console.log("CSRF TOKEN :"+ csrf_token_global);
+    
+    $(document).ready(function(){
+        $(' .close').click(function(e){
+            $(this).closest('.flash-message').remove();
+        });
+    });
+    
+</script>
+
+
+
+<style>
+    .title-heading{
+         color:#FFC107;
+         background-color:#212529;
+         padding:10px;
+         width:65%;
+         height:100%;
+         margin:auto;
+         font-family: Baloo;
+         border-radius: 5px;
+         border-style: solid;
+         border-width: 3px;
+         border-color: #212529;
+         font-size:30px;
+    }
+    
+    .button-add-case{
+        background-color : #FFC107;
+        font-family : Baloo;
+        color : white;
+        font-size :  20px;
+        padding : 10px;
+        margin : 10px;
+        width  :  70%;
+    }
+    
+    .button-add-case:hover{
+        background-color : #FFA000;
+    }
+    
+    .field-title{
+        color : #212529;
+        font-family : Baloo;
+        padding-top: 5px;
+        padding-left : 15px;
+        font-size : 20px;
+    }
+    
+</style>
+
+</head>
+<body>
+
+	<div class="container">
+    <br>
+		<h1 class="text-center title-heading"> JWT Demo</h1><br>
+				
+		<div class=" col-lg-8 m-auto d-block" style="border-style:solid;border-width:1px;border-color: #212529;border-radius:3px;padding-top:10px;">
+				
+				<center>
+				
+				<div class='row'>
+                            <div class='col-xs-6 col-sm-6 col-md-6'>
+                                <button type="button" value="Get Token" id="btn_get_token" class="btn button-add-case"> Get Token</button>
+                            </div>
+                            <div class='col-xs-6 col-sm-6 col-md-6'>
+                                 <button type="button" value="Decode Token" id="btn_decode_token" class="btn button-add-case"> Decode Token</button>
+                            </div>
+                </div> 
+                
+               
+                
+               
+             
+
+        <p> {{message}} </p>
+        
+        
+        
+            
+		</div>
+	</div>
+
+
+<script>
+    
+    $("#btn_get_token").click(function(e) { 
+    window.open(
+          '/getToken/',
+          '_blank' // <- This is what makes it open in a new window.
+    );
+});
+
+    $("#btn_decode_token").click(function(e) { 
+     window.open(
+          '/decodeToken/',
+          '_blank' // <- This is what makes it open in a new window.
+    );
+});
+
+
+</script>
+
+</body>
+</html>
