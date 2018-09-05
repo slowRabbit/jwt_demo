@@ -98,4 +98,4 @@ if __name__ == "__main__":
     #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://user1:pass@user1@localhost/flask_test1'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-    app.run(debug=True, port=8048)
+    app.run(debug=True, port=8041)
