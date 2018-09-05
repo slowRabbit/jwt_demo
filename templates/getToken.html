@@ -84,13 +84,20 @@
 				
 				<div class="form-group">
 					<label class="field-title"> Data / Payload: </label>
-					<textarea style="padding:20px;color:#212529;font-family:Nunito;" cols='60' rows='6' name="poem" id="data" class="form-control"></textarea>
+					<textarea style="padding:20px;color:#212529;font-family:Nunito;" cols='60' rows='6' name="poem" id="data" class="form-control"
+					>
+    								{
+                                        "username" : "john",
+                                        "ipaddress": "192.168.1.23",
+                                        "tokenid" :  "2341"
+                                    }
+					</textarea>
 					<span style="font-size:12px;" id="case_extra_details_error" class="text-danger font-weight-bold"> </span>
 				</div>
 				
 				<div class="form-group">
 					<label class="field-title"> Data / Payload encryption key: </label>
-					<input style="color:#212529;font-family:Nunito;" placeholder="01Q3RWx9pfkAkvIlX7aGbg==" type="text" name="title" id="encryption_key" class="form-control" autocomplete="off">
+					<input style="color:#212529;font-family:Nunito;" value="01Q3RWx9pfkAkvIlX7aGbg==" type="text" name="title" id="encryption_key" class="form-control" autocomplete="off">
 					<span style="font-size:12px;" id="case_client_id_error" class="text-danger font-weight-bold"> </span>
 				</div>
 				
